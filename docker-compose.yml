@@ -1,0 +1,45 @@
+version: "3.3"
+
+services:
+  # Wordpress
+  park-hadzhoh-wp:
+    image: wordpress:latest
+    container_name: park-hadzhoh-wp
+    restart: always
+    working_dir: /var/www/html/
+    ports:
+      - 8080:80
+    volumes:
+      - ./:/var/www/html/wp-content
+    environment:
+      WORDPRESS_DB_HOST: park-hadzhoh-mysql:3306
+      WORDPRESS_DB_NAME: park-hadzhoh
+      WORDPRESS_DB_USER: park
+      WORDPRESS_DB_PASSWORD: park
+    networks:
+      - park-network
+
+  # MySQL db
+  park-hadzhoh-mysql:
+    image: mysql:5.7.22
+    container_name: park-hadzhoh-mysql
+    restart: always
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: park
+      MYSQL_DATABASE: park-hadzhoh
+      MYSQL_USER: park
+      MYSQL_PASSWORD: park
+    networks:
+      - park-network
+
+  # Docker Networks
+  networks:
+     park-network:
+       driver: bridge
+  
+  # Volumes
+  volumes:
+     dbdata:
+       driver: local
