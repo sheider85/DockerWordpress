@@ -2,9 +2,9 @@ version: "3.3"
 
 services:
   # Wordpress
-  park-hadzhoh-wp:
+  simple-fsite-wp:
     image: wordpress:latest
-    container_name: park-hadzhoh-wp
+    container_name: simple-fsite-wp
     restart: always
     working_dir: /var/www/html/
     ports:
@@ -12,31 +12,31 @@ services:
     volumes:
       - ./:/var/www/html/wp-content
     environment:
-      WORDPRESS_DB_HOST: park-hadzhoh-mysql:3306
-      WORDPRESS_DB_NAME: park-hadzhoh
-      WORDPRESS_DB_USER: park
-      WORDPRESS_DB_PASSWORD: park
+      WORDPRESS_DB_HOST: simple-fsite-mysql:3306
+      WORDPRESS_DB_NAME: simple-fsite
+      WORDPRESS_DB_USER: simple
+      WORDPRESS_DB_PASSWORD: simple
     networks:
-      - park-network
+      - simple-network
 
   # MySQL db
-  park-hadzhoh-mysql:
+  simple-fsite-mysql:
     image: mysql:5.7.22
-    container_name: park-hadzhoh-mysql
+    container_name: simple-fsite-mysql
     restart: always
     volumes:
       - dbdata:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: park
-      MYSQL_DATABASE: park-hadzhoh
-      MYSQL_USER: park
-      MYSQL_PASSWORD: park
+      MYSQL_ROOT_PASSWORD: simple
+      MYSQL_DATABASE: simple-fsite
+      MYSQL_USER: simple
+      MYSQL_PASSWORD: simple
     networks:
-      - park-network
+      - simple-network
 
   # Docker Networks
   networks:
-     park-network:
+     simple-network:
        driver: bridge
   
   # Volumes
