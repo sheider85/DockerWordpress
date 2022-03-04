@@ -10,7 +10,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - wordpress_data:/var/www/html/wp-content
+      - ./:/var/www/html/wp-content
     environment:
       WORDPRESS_DB_HOST: simple-fsite-mysql:3306
       WORDPRESS_DB_NAME: simple-fsite
@@ -33,13 +33,7 @@ services:
       MYSQL_PASSWORD: simple
     networks:
       - simple-network
+    volumes:
+      db_data: {}
 
-  # Docker Networks
-  networks:
-     simple-network:
-       driver: bridge
-  
-  # Volumes
-  volumes:
-     db_data: {}
-     wordpress_data: {}
+
