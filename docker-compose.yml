@@ -1,4 +1,4 @@
-version: "2"
+version: "3.3"
 
 services:
   # Wordpress
@@ -10,7 +10,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./:/var/www/html/wp-content
+      - wordpress_data:/var/www/html/wp-content
     environment:
       WORDPRESS_DB_HOST: simple-fsite-mysql:3306
       WORDPRESS_DB_NAME: simple-fsite
@@ -25,7 +25,7 @@ services:
     container_name: simple-fsite-mysql
     restart: always
     volumes:
-      - dbdata:/var/lib/mysql
+      - db_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: simple
       MYSQL_DATABASE: simple-fsite
@@ -41,5 +41,5 @@ services:
   
   # Volumes
   volumes:
-     dbdata:
-       driver: local
+     db_data: {}
+     wordpress_data: {}
