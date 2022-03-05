@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3"
 
 services:
   # Wordpress
@@ -16,8 +16,8 @@ services:
       WORDPRESS_DB_NAME: simple-fsite
       WORDPRESS_DB_USER: simple
       WORDPRESS_DB_PASSWORD: simple
-    networks:
-      - simple-network
+    links:
+      - simple-fsite-mysql
 
   # MySQL db
   simple-fsite-mysql:
@@ -25,15 +25,11 @@ services:
     container_name: simple-fsite-mysql
     restart: always
     volumes:
-      - db_data:/var/lib/mysql
+      - dbdata:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: simple
       MYSQL_DATABASE: simple-fsite
       MYSQL_USER: simple
       MYSQL_PASSWORD: simple
-    networks:
-      - simple-network
-    volumes:
-      db_data: {}
-
+      
 
